@@ -1,6 +1,7 @@
 import { useAuth } from "@clerk/expo";
 import { Redirect, Tabs } from "expo-router";
 
+import { LoadingScreen } from "@/components/ui";
 import { useTenantTheme } from "@/theme";
 
 // The reference designs show exactly 3 bottom tabs — Feed, Alter ego,
@@ -11,8 +12,15 @@ import { useTenantTheme } from "@/theme";
 // needs react-native-svg (or @expo/vector-icons) wired in; text-only labels
 // for now.
 export default function TabsLayout() {
-  const { isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
   const { colors } = useTenantTheme();
+
+  // isLoaded briefly reverts to false while Clerk's auth state is updating
+  // (e.g. during setActive()) — deciding on isSignedIn before it settles
+  // bounces a still-authenticated user back to sign-in.
+  if (!isLoaded) {
+    return <LoadingScreen />;
+  }
 
   if (!isSignedIn) {
     return <Redirect href="/(auth)/sign-in" />;

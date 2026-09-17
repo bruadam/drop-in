@@ -4,5 +4,6 @@ export { Button } from "./Button";
 export { Card } from "./Card";
 export { Chip } from "./Chip";
 export { ListRow } from "./ListRow";
+export { LoadingScreen } from "./LoadingScreen";
 export { Screen } from "./Screen";
 export { ScreenHeader } from "./ScreenHeader";

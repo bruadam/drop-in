@@ -1,6 +1,7 @@
 import { useAuth } from "@clerk/expo";
 import { Redirect } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
+
+import { LoadingScreen } from "@/components/ui";
 
 /**
  * TODO once the `profiles` table is live: a signed-in user whose Clerk ID
@@ -13,11 +14,7 @@ export default function Index() {
   const { isLoaded, isSignedIn } = useAuth();
 
   if (!isLoaded) {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return <Redirect href={isSignedIn ? "/(onboarding)/choose-community" : "/(auth)/sign-in"} />;
