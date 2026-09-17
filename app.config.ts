@@ -79,6 +79,13 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         : undefined,
     },
     runtimeVersion: { policy: "fingerprint" },
-    plugins: ["expo-router"],
+    // "@clerk/expo" is load-bearing, not cosmetic: its plugin bumps the iOS
+    // deployment target to 17.0 (required by the native Clerk SDK pod) and
+    // adds the Sign in with Apple entitlement our sign-in screen depends on.
+    // Skipping it produces a deployment-target mismatch that breaks `pod
+    // install` (CocoaPods' Swift Package Manager integration crashes trying
+    // to resolve ClerkExpo's target). expo-secure-store / expo-web-browser /
+    // expo-notifications add their usual permission-string config.
+    plugins: ["expo-router", "@clerk/expo", "expo-secure-store", "expo-web-browser", "expo-notifications"],
   };
 };
