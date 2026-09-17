@@ -41,6 +41,15 @@ const IDENTIFIERS: Record<Env, { name: string; bundleId: string; scheme: string 
 const IS_E2E_BUILD = process.env.EXPO_PUBLIC_E2E_BUILD === "true";
 const E2E_IDENTITY = { name: "Drop-In (E2E)", bundleId: "com.dropin.app.e2e", scheme: "dropin-e2e" };
 
+// Unlike the per-environment values above, `eas` CLI treats project identity
+// (extra.eas.projectId, updates.url) as something that must be a literal in
+// dynamic config, not derived from an env var — even though it resolves
+// correctly at runtime either way, `eas build`/`eas device:create` refuse to
+// proceed ("Cannot automatically write to dynamic config") unless it's a
+// hardcoded string it can find in the source. Not a secret, so hardcoding is
+// fine — this is the same project across dev/staging/production.
+const EAS_PROJECT_ID = "25c7e9df-deb1-486e-9884-076426c88173";
+
 export default ({ config }: ConfigContext): ExpoConfig => {
   const env = IS_E2E_BUILD ? E2E_IDENTITY : (IDENTIFIERS[APP_ENV] ?? IDENTIFIERS.development);
 
@@ -57,6 +66,13 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ...config.ios,
       bundleIdentifier: env.bundleId,
       supportsTablet: false,
+      // We don't implement any custom/non-exempt encryption (just standard
+      // HTTPS/TLS), which qualifies for Apple's export-compliance exemption.
+      // Declaring it here skips the encryption question on every build/submit.
+      infoPlist: {
+        ...config.ios?.infoPlist,
+        ITSAppUsesNonExemptEncryption: false,
+      },
     },
     android: {
       ...config.android,
@@ -78,13 +94,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       ...config.extra,
       appEnv: APP_ENV,
       eas: {
-        projectId: process.env.EAS_PROJECT_ID,
+        projectId: EAS_PROJECT_ID,
       },
     },
     updates: {
-      url: process.env.EAS_PROJECT_ID
-        ? `https://u.expo.dev/${process.env.EAS_PROJECT_ID}`
-        : undefined,
+      url: `https://u.expo.dev/${EAS_PROJECT_ID}`,
     },
     runtimeVersion: { policy: "fingerprint" },
     // "@clerk/expo" is load-bearing, not cosmetic: its plugin bumps the iOS
