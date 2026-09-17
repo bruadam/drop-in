@@ -1,11 +1,5 @@
-// @clerk/expo's default useSignIn/useSignUp are the newer "signals" API
-// (Clerk Core 3) — the `/legacy` subpath keeps the classic promise-based
-// shape (`signIn.create()`, `signIn.attemptFirstFactor()`, etc.) this file
-// is written against.
-import { useSignIn, useSignUp } from "@clerk/expo/legacy";
-import { useSSO } from "@clerk/expo";
-import * as AuthSession from "expo-auth-session";
-import { router } from "expo-router";
+import { useSignIn, useSignUp, useSSO } from "@clerk/expo";
+import { router, type Href } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -14,88 +8,109 @@ import { useTenantTheme } from "@/theme";
 import { spacing, typography } from "@/theme/tokens";
 
 /**
- * Spec calls for "email magic link, Google, Apple — no passwords". This
- * implements email as a one-time code instead of a magic link (no deep-link
- * listener needed to receive it) — swap to Clerk's `email_link` strategy
- * later if a true tap-the-link flow matters more than avoiding that
- * plumbing. Also doesn't yet know if the email address belongs to an
- * existing resident or a brand-new one — it currently only completes the
- * *existing user* sign-in path; wiring the sign-up branch (create + verify
- * via `useSignUp`) is still open.
+ * Combined sign-in-or-up, per spec: email code, Google, Apple — no
+ * passwords (the Clerk instance's password/username requirements were
+ * disabled to match). Attempts sign-in first; a "no such user" error
+ * transfers to sign-up with the same email. See @clerk/expo's
+ * custom-flows guide for the method-based SignInFuture/SignUpFuture API.
  */
 export default function SignInScreen() {
   const { colors } = useTenantTheme();
-  const { signIn, setActive: setActiveFromSignIn, isLoaded: signInLoaded } = useSignIn();
-  const { signUp, setActive: setActiveFromSignUp, isLoaded: signUpLoaded } = useSignUp();
+  const { signIn, errors: signInErrors, fetchStatus: signInFetchStatus } = useSignIn();
+  const { signUp, errors: signUpErrors, fetchStatus: signUpFetchStatus } = useSignUp();
   const { startSSOFlow } = useSSO();
 
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [isNewUser, setIsNewUser] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleRequestCode() {
-    if (!signInLoaded || !signUpLoaded || !email.trim()) return;
-    setSubmitting(true);
-    setError(null);
-    try {
-      await signIn.create({ identifier: email.trim(), strategy: "email_code" });
-      setIsNewUser(false);
-      setPendingVerification(true);
-    } catch {
-      try {
-        await signUp.create({ emailAddress: email.trim() });
-        await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-        setIsNewUser(true);
-        setPendingVerification(true);
-      } catch (signUpError) {
-        setError(signUpError instanceof Error ? signUpError.message : "Couldn't send a code. Try again.");
-      }
-    } finally {
-      setSubmitting(false);
+  const submitting = signInFetchStatus === "fetching" || signUpFetchStatus === "fetching";
+
+  function navigateAfterAuth({
+    session,
+    decorateUrl,
+  }: {
+    session?: { currentTask?: unknown };
+    decorateUrl: (url: string) => string;
+  }) {
+    if (session?.currentTask) {
+      // TODO: route to session-task UI (e.g. forced MFA enrollment) once needed.
+      return;
+    }
+    const url = decorateUrl("/(onboarding)/choose-community");
+    if (url.startsWith("http")) {
+      // Web only: decorateUrl can return an absolute URL for Safari ITP cookie refresh.
+      if (typeof window !== "undefined") window.location.href = url;
+    } else {
+      router.replace(url as Href);
     }
   }
 
-  async function handleVerifyCode() {
-    if (!signInLoaded || !signUpLoaded || !code.trim()) return;
-    setSubmitting(true);
+  async function handleRequestCode() {
+    if (!email.trim()) return;
     setError(null);
-    try {
-      if (isNewUser) {
-        const result = await signUp.attemptEmailAddressVerification({ code: code.trim() });
-        if (result.status === "complete") {
-          await setActiveFromSignUp({ session: result.createdSessionId });
-          router.replace("/(onboarding)/choose-community");
-        }
-      } else {
-        const result = await signIn.attemptFirstFactor({ strategy: "email_code", code: code.trim() });
-        if (result.status === "complete") {
-          await setActiveFromSignIn({ session: result.createdSessionId });
-          router.replace("/(onboarding)/choose-community");
-        }
+
+    const { error: signInError } = await signIn.emailCode.sendCode({ emailAddress: email.trim() });
+    if (!signInError) {
+      setIsNewUser(false);
+      setPendingVerification(true);
+      return;
+    }
+
+    if (signInError.code === "form_identifier_not_found") {
+      const { error: signUpError } = await signUp.create({ emailAddress: email.trim() });
+      if (signUpError) {
+        setError(signUpError.longMessage ?? "Couldn't start sign-up. Try again.");
+        return;
       }
-    } catch (verifyError) {
-      setError(verifyError instanceof Error ? verifyError.message : "That code didn't work. Try again.");
-    } finally {
-      setSubmitting(false);
+      await signUp.verifications.sendEmailCode();
+      setIsNewUser(true);
+      setPendingVerification(true);
+      return;
+    }
+
+    setError(signInError.longMessage ?? "Couldn't send a code. Try again.");
+  }
+
+  async function handleVerifyCode() {
+    if (!code.trim()) return;
+    setError(null);
+
+    if (isNewUser) {
+      const { error: verifyError } = await signUp.verifications.verifyEmailCode({ code: code.trim() });
+      if (verifyError) {
+        setError(verifyError.longMessage ?? "That code didn't work. Try again.");
+        return;
+      }
+      if (signUp.status === "complete") {
+        await signUp.finalize({ navigate: navigateAfterAuth });
+      }
+    } else {
+      const { error: verifyError } = await signIn.emailCode.verifyCode({ code: code.trim() });
+      if (verifyError) {
+        setError(verifyError.longMessage ?? "That code didn't work. Try again.");
+        return;
+      }
+      if (signIn.status === "complete") {
+        await signIn.finalize({ navigate: navigateAfterAuth });
+      }
     }
   }
 
   async function handleOAuth(strategy: "oauth_google" | "oauth_apple") {
     setError(null);
     try {
-      const { createdSessionId, setActive } = await startSSOFlow({
-        strategy,
-        redirectUrl: AuthSession.makeRedirectUri(),
-      });
+      const { createdSessionId, setActive } = await startSSOFlow({ strategy });
+      // No createdSessionId and no thrown error means the user cancelled — not an error state.
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
         router.replace("/(onboarding)/choose-community");
       }
     } catch (oauthError) {
-      setError(oauthError instanceof Error ? oauthError.message : "Sign-in was cancelled or failed.");
+      console.error(JSON.stringify(oauthError, null, 2));
+      setError("Sign-in failed. Try again.");
     }
   }
 
@@ -133,6 +148,12 @@ export default function SignInScreen() {
       )}
 
       {error ? <Text style={[styles.error, { color: colors.destructive }]}>{error}</Text> : null}
+      {signInErrors.fields.identifier ? (
+        <Text style={[styles.error, { color: colors.destructive }]}>{signInErrors.fields.identifier.message}</Text>
+      ) : null}
+      {signUpErrors.fields.captcha ? (
+        <Text style={[styles.error, { color: colors.destructive }]}>{signUpErrors.fields.captcha.message}</Text>
+      ) : null}
 
       <View style={styles.dividerRow}>
         <View style={[styles.dividerLine, { backgroundColor: colors.divider }]} />
@@ -146,6 +167,9 @@ export default function SignInScreen() {
       </View>
 
       <Text style={[styles.footer, { color: colors.textMuted }]}>Protected by Clerk</Text>
+
+      {/* Required mount point for Clerk's bot-protection captcha — this screen can create a sign-up. */}
+      <View nativeID="clerk-captcha" />
     </View>
   );
 }

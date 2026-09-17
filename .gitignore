@@ -16,4 +16,7 @@ coverage/
 /ios
 /android
 
+# Regenerated locally by Expo CLI on first run
+expo-env.d.ts
+
 .DS_Store

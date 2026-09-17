@@ -2,16 +2,6 @@ import "react-native-url-polyfill/auto";
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Missing EXPO_PUBLIC_SUPABASE_URL / EXPO_PUBLIC_SUPABASE_ANON_KEY — copy .env.example to " +
-      ".env (or .env.dev.example, etc.) and fill in your Supabase project's values.",
-  );
-}
-
 /**
  * Auth lives entirely in Clerk (see ClerkProvider in src/app/_layout.tsx) —
  * Supabase never runs its own sign-in and holds no session of its own.
@@ -25,6 +15,16 @@ if (!supabaseUrl || !supabaseAnonKey) {
  * getter, not a stale one captured at module load.
  */
 export function createSupabaseClient(getToken: () => Promise<string | null>): SupabaseClient {
+  const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(
+      "Missing EXPO_PUBLIC_SUPABASE_URL / EXPO_PUBLIC_SUPABASE_ANON_KEY — copy .env.example to " +
+        ".env (or .env.dev.example, etc.) and fill in your Supabase project's values.",
+    );
+  }
+
   return createClient(supabaseUrl, supabaseAnonKey, {
     accessToken: () => getToken(),
   });
