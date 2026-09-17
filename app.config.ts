@@ -1,4 +1,12 @@
 import type { ExpoConfig, ConfigContext } from "expo/config";
+import { loadProjectEnv } from "@expo/env";
+
+// `expo` CLI commands (start/run/export) load .env files before evaluating
+// this config, but `eas` CLI commands (device:create, build:configure, ...)
+// don't — they evaluate app.config.ts directly, so without this, EAS_PROJECT_ID
+// below reads as undefined and `eas` fails to link the project. This is a
+// no-op if the env is already loaded (won't override real system/CI env vars).
+loadProjectEnv(process.cwd());
 
 // APP_ENV is set by eas.json's per-profile "environment" field (development |
 // preview | production) and mirrors the git branch: dev -> development,
