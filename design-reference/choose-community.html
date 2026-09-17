@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<script src="f39dc7b4-6723-4a18-a694-799d75d8051c"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F7F4EF; display: flex; flex-direction: column; overflow: hidden;">
+
+  <div style="padding: 32px 16px 8px 16px; display: flex; flex-direction: column; gap: 4px;">
+    <div style="font-size: 28px; line-height: 34px; font-weight: 700; color: #211D17;">Nearby communities</div>
+    <div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #5C5648;">Based on your location, within 20km</div>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 12px; padding: 16px; overflow: hidden;">
+
+    <div style="background: #FFFFFF; border: 1px solid #E1DACC; border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 12px;">
+      <div style="width: 44px; height: 44px; border-radius: 9999px; background: {{accent}}22; flex-shrink: 0;"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px;">
+        <div style="font-size: 16px; line-height: 21px; font-weight: 600; color: #211D17;">UN17 Village</div>
+        <div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #5C5648;">Copenhagen · 0.2km away</div>
+      </div>
+      <button style="border: none; background: {{accent}}; color: #FFFFFF; font-size: 13px; line-height: 18px; font-weight: 600; padding: 8px 16px; border-radius: 9999px;">Join</button>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E1DACC; border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 12px;">
+      <div style="width: 44px; height: 44px; border-radius: 9999px; background: #C7BEAC55; flex-shrink: 0;"></div>
+      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px;">
+        <div style="font-size: 16px; line-height: 21px; font-weight: 600; color: #211D17;">Fælled Court</div>
+        <div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #5C5648;">Copenhagen · 3.4km away</div>
+      </div>
+      <button style="border: 1px solid #C7BEAC; background: transparent; color: #211D17; font-size: 13px; line-height: 18px; font-weight: 600; padding: 8px 16px; border-radius: 9999px;">Join</button>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+      <div style="flex-grow: 1; height: 1px; background: #E1DACC;"></div>
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #726B5B;">or</div>
+      <div style="flex-grow: 1; height: 1px; background: #E1DACC;"></div>
+    </div>
+
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Have an invite code?</span>
+      <input type="text" placeholder="Enter code" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+    </label>
+
+    <a href="#" style="font-size: 15px; line-height: 20px; color: #5C5648; text-decoration: underline; text-align: center; margin-top: 4px;">Search open communities</a>
+  </div>
+
+  <div style="padding: 16px; padding-bottom: 32px;">
+    <button style="width: 100%; border: none; background: {{accent}}; color: #FFFFFF; font-size: 16px; line-height: 21px; font-weight: 600; padding: 14px; border-radius: 14px; box-sizing: border-box;">Continue</button>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script="" data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B84F26&quot;,&quot;options&quot;:[&quot;#B84F26&quot;,&quot;#1C6E8C&quot;,&quot;#2F6F4E&quot;,&quot;#8A5F0A&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B84F26' };
+  }
+}
+</script>
+
+
+</body></html>

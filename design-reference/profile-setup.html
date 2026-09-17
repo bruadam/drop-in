@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<script src="2ab73929-4442-482f-b068-27a06b231a61"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F7F4EF; display: flex; flex-direction: column; overflow: hidden;">
+
+  <div style="padding: 32px 16px 8px 16px; display: flex; flex-direction: column; gap: 4px;">
+    <div style="font-size: 28px; line-height: 34px; font-weight: 700; color: #211D17;">Set up your profile</div>
+    <div style="font-size: 13px; line-height: 18px; font-weight: 400; color: #5C5648;">So your neighbors know who's joining</div>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px; padding: 16px; overflow: hidden;">
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+      <div style="width: 72px; height: 72px; border-radius: 9999px; background: {{accent}}22; border: 2px dashed #C7BEAC;"></div>
+      <a href="#" style="font-size: 13px; line-height: 18px; color: {{accent}}; text-decoration: underline;">Add photo</a>
+    </div>
+
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Name</span>
+      <input type="text" placeholder="Your name" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+    </label>
+
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Zone / building</span>
+      <div style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; display: flex; align-items: center; justify-content: space-between;">
+        <span>Norden</span>
+        <span style="color: #726B5B;">⌄</span>
+      </div>
+    </label>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">What are you into?</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div style="background: {{accent}}22; color: {{accent}}; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Running</div>
+        <div style="background: {{accent}}22; color: {{accent}}; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Board games</div>
+        <div style="background: #FFFFFF; border: 1px solid #C7BEAC; color: #211D17; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Knitting</div>
+        <div style="background: #FFFFFF; border: 1px solid #C7BEAC; color: #211D17; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Cycling</div>
+        <div style="background: #FFFFFF; border: 1px dashed #C7BEAC; color: #726B5B; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">+ Add</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding: 16px; padding-bottom: 32px;">
+    <button style="width: 100%; border: none; background: {{accent}}; color: #FFFFFF; font-size: 16px; line-height: 21px; font-weight: 600; padding: 14px; border-radius: 14px; box-sizing: border-box;">Continue</button>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script="" data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B84F26&quot;,&quot;options&quot;:[&quot;#B84F26&quot;,&quot;#1C6E8C&quot;,&quot;#2F6F4E&quot;,&quot;#8A5F0A&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B84F26' };
+  }
+}
+</script>
+
+
+</body></html>

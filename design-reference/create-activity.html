@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<script src="96084a13-5610-4a6e-977d-6868643c8062"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #EFEAE199; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;">
+  <div style="background: #FFFFFF; border-radius: 20px 20px 0 0; box-shadow: 0 -2px 24px rgba(33,29,23,0.12); padding: 12px 16px 32px 16px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; max-height: 800px; overflow-y: auto;">
+
+    <div style="width: 36px; height: 4px; background: #C7BEAC; border-radius: 9999px; align-self: center;"></div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #211D17;">New drop-in</div>
+      <div style="font-size: 20px; color: #726B5B;">×</div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">What are you into?</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div style="background: {{accent}}22; color: {{accent}}; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Running</div>
+        <div style="background: #EFEAE1; border: 1px solid #C7BEAC; color: #211D17; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Board games</div>
+        <div style="background: #EFEAE1; border: 1px solid #C7BEAC; color: #211D17; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Sauna</div>
+      </div>
+    </div>
+
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Training type (optional)</span>
+      <input type="text" placeholder="e.g. easy run, intervals, long ride" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+    </label>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Level</div>
+      <div style="display: flex; gap: 8px;">
+        <div style="background: #EFEAE1; border: 1px solid #C7BEAC; color: #5C5648; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 10px; border-radius: 8px;">🌱 Beginner-friendly</div>
+        <div style="background: #EFEAE1; border: 1px solid #C7BEAC; color: #5C5648; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 10px; border-radius: 8px;">◎ Open to all</div>
+        <div style="background: {{accent}}22; border: 1px solid {{accent}}; color: {{accent}}; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 10px; border-radius: 8px;">★ Advanced</div>
+      </div>
+      <div style="font-size: 11px; line-height: 15px; font-weight: 400; color: #726B5B;">Your connected pace: ~4:20/km avg (from Strava)</div>
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <label style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Duration</span>
+        <input type="text" placeholder="60 min" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+      </label>
+      <label style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1;">
+        <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Target pace</span>
+        <input type="text" placeholder="4:30/km" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+      </label>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">When</div>
+      <div style="display: flex; background: #EFEAE1; border-radius: 14px; padding: 4px;">
+        <div style="flex-grow: 1; text-align: center; background: #FFFFFF; border-radius: 10px; padding: 10px; font-size: 15px; font-weight: 600; color: #211D17;">Right now</div>
+        <div style="flex-grow: 1; text-align: center; padding: 10px; font-size: 15px; font-weight: 400; color: #726B5B;">Pick a time</div>
+      </div>
+    </div>
+
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Where</span>
+      <input type="text" placeholder="e.g. Søen loop, west entrance" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+    </label>
+
+    <sc-if value="{{!route}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Route (optional)</div>
+        <div style="display: flex; gap: 8px;">
+          <button sc-camel-on-click="{{attachRoute}}" style="flex-grow: 1; border: 1px solid #C7BEAC; background: #EFEAE1; color: #211D17; font-size: 13px; line-height: 18px; font-weight: 600; padding: 10px; border-radius: 12px;">Attach Strava route</button>
+          <button style="flex-grow: 1; border: 1px solid #C7BEAC; background: #EFEAE1; color: #211D17; font-size: 13px; line-height: 18px; font-weight: 600; padding: 10px; border-radius: 12px;">Upload GPX</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{route}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Route</div>
+        <div style="display: flex; align-items: center; gap: 12px; border: 1px solid #E1DACC; border-radius: 14px; padding: 10px;">
+          <div style="width: 56px; height: 56px; border-radius: 10px; background: #EFEAE1; flex-shrink: 0;"></div>
+          <div style="display: flex; flex-direction: column;">
+            <div style="font-size: 14px; line-height: 18px; font-weight: 600; color: #211D17;">Søen loop</div>
+            <div style="font-size: 12px; line-height: 16px; color: #726B5B;">4.2 km · +32 m · from Strava</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{!paid}}" hint-placeholder-val="{{true}}">
+      <div sc-camel-on-click="{{togglePaid}}" style="display: flex; align-items: center; justify-content: space-between; padding: 4px 0;">
+        <div style="display: flex; flex-direction: column;">
+          <div style="font-size: 15px; line-height: 20px; color: #211D17;">Paid activity</div>
+          <div style="font-size: 11px; line-height: 15px; color: #726B5B;">e.g. sauna, gear rental</div>
+        </div>
+        <div style="width: 40px; height: 24px; border-radius: 9999px; background: #C7BEAC; position: relative;"><div style="width: 18px; height: 18px; border-radius: 9999px; background: #FFFFFF; position: absolute; top: 3px; left: 3px;"></div></div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{paid}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div sc-camel-on-click="{{togglePaid}}" style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; flex-direction: column;">
+            <div style="font-size: 15px; line-height: 20px; color: #211D17;">Paid activity</div>
+            <div style="font-size: 11px; line-height: 15px; color: #726B5B;">e.g. sauna, gear rental</div>
+          </div>
+          <div style="width: 40px; height: 24px; border-radius: 9999px; background: {{accent}}; position: relative;"><div style="width: 18px; height: 18px; border-radius: 9999px; background: #FFFFFF; position: absolute; top: 3px; right: 3px;"></div></div>
+        </div>
+        <label style="display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Price per person</span>
+          <input type="text" placeholder="e.g. 50 DKK" style="border: 1px solid #C7BEAC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #211D17; box-sizing: border-box;">
+        </label>
+        <div style="font-size: 11px; line-height: 15px; font-weight: 400; color: #726B5B;">Collected via Polar.sh when someone joins</div>
+      </div>
+    </sc-if>
+
+    <button style="width: 100%; border: none; background: {{accent}}; color: #FFFFFF; font-size: 16px; line-height: 21px; font-weight: 600; padding: 14px; border-radius: 14px; box-sizing: border-box;">Post it</button>
+
+  </div>
+</div>
+</x-dc>
+<script data-dc-script="" data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B84F26&quot;,&quot;options&quot;:[&quot;#B84F26&quot;,&quot;#1C6E8C&quot;,&quot;#2F6F4E&quot;,&quot;#8A5F0A&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { paid: false, route: false };
+  }
+  renderVals() {
+    return {
+      accent: this.props.accent ?? '#B84F26',
+      paid: this.state.paid,
+      route: this.state.route,
+      togglePaid: () => this.setState({ paid: !this.state.paid }),
+      attachRoute: () => this.setState({ route: true })
+    };
+  }
+}
+</script>
+
+
+</body></html>

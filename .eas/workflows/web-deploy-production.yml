@@ -1,0 +1,17 @@
+name: Web deploy (Vercel production)
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  deploy_web_production:
+    name: Export and deploy web (production)
+    environment: production
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - name: Export web build
+        run: npx expo export --platform web
+      - name: Deploy to Vercel (production)
+        run: npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN

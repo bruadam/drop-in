@@ -1,0 +1,28 @@
+name: Staging release (TestFlight)
+
+on:
+  push:
+    branches: ['staging']
+
+jobs:
+  build_ios_preview:
+    name: Build iOS (preview)
+    type: build
+    params:
+      platform: ios
+      profile: preview
+
+  submit_testflight:
+    name: Submit to TestFlight (internal)
+    needs: [build_ios_preview]
+    type: submit
+    params:
+      platform: ios
+      build_id: ${{ needs.build_ios_preview.outputs.build_id }}
+
+  notify:
+    name: Notify Slack
+    needs: [submit_testflight]
+    type: slack
+    params:
+      message: 'New staging build submitted to TestFlight from `staging`.'

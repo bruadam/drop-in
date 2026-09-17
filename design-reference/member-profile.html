@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<script src="5065cf73-9422-4f90-8987-cee0cc149bc0"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F7F4EF; display: flex; flex-direction: column; overflow: hidden;">
+
+  <div style="padding: 32px 16px 4px 16px; display: flex; align-items: center; gap: 12px;">
+    <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="#211D17" stroke-width="2" stroke-linecap="round"><path d="M15 5L8 12l7 7"></path></svg>
+    <div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #211D17;">Profile</div>
+  </div>
+
+  <div style="padding: 20px 16px 16px 16px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+    <div style="width: 84px; height: 84px; border-radius: 9999px; background: #F3DCCF;"></div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <div style="font-size: 20px; line-height: 25px; font-weight: 700; color: #211D17;">Astrid, 34</div>
+      <div style="font-size: 13px; line-height: 18px; color: #5C5648;">Norden</div>
+    </div>
+    <button style="border: 1px solid {{accent}}; background: transparent; color: {{accent}}; font-size: 13px; line-height: 18px; font-weight: 600; padding: 8px 20px; border-radius: 9999px; margin-top: 4px;">+ Follow</button>
+  </div>
+
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px; padding: 4px 16px; overflow: hidden;">
+
+    <div style="font-size: 14px; line-height: 19px; color: #211D17;">Runs most mornings, always up for a slow one if you're just getting into it. New to Norden as of this spring.</div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Interests</div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div style="background: {{accent}}22; color: {{accent}}; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Running</div>
+        <div style="background: #EFEAE1; border: 1px solid #C7BEAC; color: #211D17; font-size: 12px; line-height: 16px; font-weight: 600; padding: 6px 12px; border-radius: 8px;">Swimming</div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Last hosted</div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #E1DACC;">
+        <div style="display: flex; flex-direction: column;">
+          <div style="font-size: 14px; line-height: 19px; font-weight: 600; color: #211D17;">Running — Søen loop</div>
+          <div style="font-size: 12px; line-height: 16px; color: #726B5B;">Hosted yesterday</div>
+        </div>
+        <div style="background: #EFEAE1; color: #5C5648; font-size: 11px; line-height: 15px; font-weight: 600; padding: 3px 8px; border-radius: 8px;">★ Advanced</div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #E1DACC;">
+        <div style="display: flex; flex-direction: column;">
+          <div style="font-size: 14px; line-height: 19px; font-weight: 600; color: #211D17;">Easy morning jog</div>
+          <div style="font-size: 12px; line-height: 16px; color: #726B5B;">Hosted 4 days ago</div>
+        </div>
+        <div style="background: #EFEAE1; color: #5C5648; font-size: 11px; line-height: 15px; font-weight: 600; padding: 3px 8px; border-radius: 8px;">🌱 Beginner-friendly</div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+        <div style="display: flex; flex-direction: column;">
+          <div style="font-size: 14px; line-height: 19px; font-weight: 600; color: #211D17;">Lake loop, anyone in?</div>
+          <div style="font-size: 12px; line-height: 16px; color: #726B5B;">Hosted last week</div>
+        </div>
+        <div style="background: #EFEAE1; color: #5C5648; font-size: 11px; line-height: 15px; font-weight: 600; padding: 3px 8px; border-radius: 8px;">◎ Open to all</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script="" data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B84F26&quot;,&quot;options&quot;:[&quot;#B84F26&quot;,&quot;#1C6E8C&quot;,&quot;#2F6F4E&quot;,&quot;#8A5F0A&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B84F26' };
+  }
+}
+</script>
+
+
+</body></html>

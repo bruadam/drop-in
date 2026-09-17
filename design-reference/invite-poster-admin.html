@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<script src="938eac8a-c045-4a5b-a97c-070aece553a4"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif; }
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F7F4EF; display: flex; flex-direction: column; overflow: hidden;">
+
+  <div style="padding: 32px 16px 4px 16px; display: flex; align-items: center; gap: 12px;">
+    <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="#211D17" stroke-width="2" stroke-linecap="round"><path d="M15 5L8 12l7 7"></path></svg>
+    <div style="font-size: 20px; line-height: 25px; font-weight: 600; color: #211D17;">Invite poster</div>
+  </div>
+  <div style="padding: 4px 16px 16px 16px; font-size: 13px; line-height: 18px; color: #5C5648;">Admin only · UN17 Village</div>
+
+  <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 16px; padding: 0 16px; overflow: hidden;">
+
+    <!-- Mini preview of the generated A4 poster -->
+    <div style="background: #FFFFFF; border: 1px solid #C7BEAC; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+      <div style="width: 200px; height: 283px; background: #F7F4EF; border: 1px solid #E1DACC; border-radius: 6px; padding: 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px;">
+        <div style="background: #F3DCCF; color: #B84F26; font-size: 8px; font-weight: 700; padding: 2px 6px; border-radius: 6px; width: fit-content;">UN17 VILLAGE</div>
+        <div style="font-size: 22px; font-weight: 700; color: #B84F26;">Drop-In</div>
+        <div style="font-size: 9px; color: #5C5648;">Meet your neighbors, spontaneously.</div>
+        <div style="background: #FFFFFF; border: 1px solid #E1DACC; border-radius: 4px; padding: 8px; display: flex; flex-direction: column; gap: 3px;">
+          <div style="font-size: 8px; font-weight: 700; color: #211D17;">About UN17 Village</div>
+          <div style="width: 100%; height: 4px; background: #E1DACC; border-radius: 2px;"></div>
+          <div style="width: 80%; height: 4px; background: #E1DACC; border-radius: 2px;"></div>
+        </div>
+        <div style="flex-grow: 1;"></div>
+        <div style="background: #FFFFFF; border: 1.5px solid #B84F26; border-radius: 6px; padding: 8px; display: flex; align-items: center; gap: 8px;">
+          <div style="width: 40px; height: 40px; background: #211D17; border-radius: 3px; flex-shrink: 0;"></div>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div style="font-size: 8px; font-weight: 700; color: #211D17;">Scan to join</div>
+            <div style="width: 70px; height: 3px; background: #E1DACC; border-radius: 2px;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size: 12px; line-height: 16px; color: #726B5B;">A4 · updates automatically as you edit below</div>
+    </div>
+
+    <!-- Editable fields -->
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Community name</span>
+      <div style="border: 1px solid #E1DACC; background: #EFEAE1; border-radius: 14px; padding: 12px 16px; font-size: 15px; color: #726B5B;">UN17 Village <span style="font-size: 11px;">(from community settings)</span></div>
+    </label>
+
+    <label style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Description shown on the poster</span>
+      <div style="border: 1px solid #C7BEAC; background: #FFFFFF; border-radius: 14px; padding: 12px 16px; font-size: 14px; line-height: 19px; color: #211D17;">A resident-run residence in Copenhagen — Lunden, Kronen, Norden, Spidsen and Søen.</div>
+    </label>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 28px; height: 28px; border-radius: 9999px; background: #B84F26; border: 2px solid #211D17; flex-shrink: 0;"></div>
+      <div style="display: flex; flex-direction: column;">
+        <div style="font-size: 13px; line-height: 17px; font-weight: 600; color: #211D17;">Accent color</div>
+        <div style="font-size: 11px; line-height: 15px; color: #726B5B;">Matches the community's branding — edit in tenant settings</div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <div style="font-size: 12px; line-height: 16px; font-weight: 500; color: #5C5648;">Join link (QR target)</div>
+      <div style="font-size: 13px; line-height: 18px; color: #726B5B; font-style: italic;">drop-in.un17hub.com/join/un17</div>
+    </div>
+
+  </div>
+
+  <div style="padding: 16px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 10px;">
+    <button style="width: 100%; border: none; background: {{accent}}; color: #FFFFFF; font-size: 16px; line-height: 21px; font-weight: 600; padding: 14px; border-radius: 14px; box-sizing: border-box;">Generate PDF (A4)</button>
+    <button style="width: 100%; border: 1px solid #C7BEAC; background: transparent; color: #211D17; font-size: 14px; line-height: 18px; font-weight: 600; padding: 12px; border-radius: 14px; box-sizing: border-box;">Download last version</button>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script="" data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B84F26&quot;,&quot;options&quot;:[&quot;#B84F26&quot;,&quot;#1C6E8C&quot;,&quot;#2F6F4E&quot;,&quot;#8A5F0A&quot;]},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B84F26' };
+  }
+}
+</script>
+
+
+</body></html>

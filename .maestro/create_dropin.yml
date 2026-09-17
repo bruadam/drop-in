@@ -1,0 +1,7 @@
+appId: com.dropin.app.e2e
+---
+- tapOn: 'Create activity'
+- tapOn: 'Running'
+- inputText: 'E2E test run — Søen loop'
+- tapOn: 'Post it'
+- assertVisible: 'E2E test run — Søen loop'

@@ -1,0 +1,19 @@
+name: Web deploy (Vercel preview)
+
+# Decoupled from native builds on purpose — a JS-only change shouldn't wait
+# on an App Store build. Requires VERCEL_TOKEN set as an EAS secret.
+on:
+  push:
+    branches: ['staging']
+
+jobs:
+  deploy_web_preview:
+    name: Export and deploy web (preview)
+    environment: preview
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - name: Export web build
+        run: npx expo export --platform web
+      - name: Deploy to Vercel (preview)
+        run: npx vercel deploy --prebuilt --token=$VERCEL_TOKEN

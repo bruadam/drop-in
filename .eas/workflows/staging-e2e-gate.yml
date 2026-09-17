@@ -1,0 +1,29 @@
+name: Staging E2E gate
+
+# The heavier gate: every PR from dev into staging must pass the full
+# Maestro suite against a real build before a human reviews it.
+on:
+  pull_request:
+    branches: ['staging']
+
+jobs:
+  build_ios_e2e:
+    name: Build iOS (simulator) for E2E
+    type: build
+    environment: preview
+    params:
+      platform: ios
+      profile: e2e-test
+
+  maestro_full_suite:
+    name: Maestro full suite
+    needs: [build_ios_e2e]
+    type: maestro
+    environment: preview
+    params:
+      build_id: ${{ needs.build_ios_e2e.outputs.build_id }}
+      flow_path:
+        - '.maestro/sign_in.yml'
+        - '.maestro/join_community.yml'
+        - '.maestro/create_dropin.yml'
+        - '.maestro/alter_ego_reveal.yml'

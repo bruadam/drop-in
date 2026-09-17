@@ -1,0 +1,8 @@
+appId: com.dropin.app.e2e
+---
+# Runs after sign_in.yml — Maestro continues in the same app session unless
+# launchApp is called again, so this picks up on the "Choose your community" screen.
+- tapOn: 'Enter invite code'
+- inputText: ${E2E_TEST_COMMUNITY_INVITE_CODE}
+- tapOn: 'Join'
+- assertVisible: 'Activity feed'

@@ -1,0 +1,9 @@
+appId: com.dropin.app.e2e
+---
+# Requires a seeded alter_ego_matches row where the OTHER side has already
+# opted in (see docs/CI-CD.md for the staging seed script) — tapping curious
+# here should trigger an immediate reveal rather than a pending state.
+- tapOn: 'Alter ego'
+- tapOn: "I'm curious"
+- assertVisible: 'You matched!'
+- assertVisible: 'Now following each other'

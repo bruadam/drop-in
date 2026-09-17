@@ -1,0 +1,30 @@
+name: Dev E2E smoke test
+
+# Runs once a PR actually merges into dev. Builds against the hosted dev
+# Supabase project + Clerk test instance (never localhost — see .env.dev.example)
+# and signs in as the dedicated E2E test account to check the core flows
+# aren't broken.
+on:
+  push:
+    branches: ['dev']
+
+jobs:
+  build_ios_e2e:
+    name: Build iOS (simulator) for E2E
+    type: build
+    environment: development
+    params:
+      platform: ios
+      profile: e2e-test
+
+  maestro_smoke_test:
+    name: Maestro smoke test
+    needs: [build_ios_e2e]
+    type: maestro
+    environment: development
+    params:
+      build_id: ${{ needs.build_ios_e2e.outputs.build_id }}
+      flow_path:
+        - '.maestro/sign_in.yml'
+        - '.maestro/join_community.yml'
+        - '.maestro/create_dropin.yml'

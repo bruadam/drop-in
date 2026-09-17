@@ -1,0 +1,12 @@
+appId: com.dropin.app.e2e
+---
+# Uses the dedicated E2E test account (E2E_TEST_ACCOUNT_EMAIL /
+# E2E_TEST_ACCOUNT_PASSWORD from .env.dev), never a real resident's account.
+- launchApp
+- assertVisible: 'Sign in'
+- tapOn: 'Continue with email'
+- inputText: ${E2E_TEST_ACCOUNT_EMAIL}
+- tapOn: 'Continue'
+- inputText: ${E2E_TEST_ACCOUNT_PASSWORD}
+- tapOn: 'Sign in'
+- assertVisible: 'Choose your community'
