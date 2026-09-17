@@ -84,8 +84,15 @@ export default function SignInScreen() {
         setError(verifyError.longMessage ?? "That code didn't work. Try again.");
         return;
       }
+      console.warn("signUp status after verify:", signUp.status, "missingFields:", signUp.missingFields);
       if (signUp.status === "complete") {
-        await signUp.finalize({ navigate: navigateAfterAuth });
+        const { error: finalizeError } = await signUp.finalize({ navigate: navigateAfterAuth });
+        if (finalizeError) {
+          console.error("signUp.finalize error:", JSON.stringify(finalizeError, null, 2));
+          setError(finalizeError.longMessage ?? "Couldn't complete sign-up. Try again.");
+        }
+      } else {
+        setError(`Sign-up isn't complete yet (status: ${signUp.status}). Missing: ${signUp.missingFields.join(", ") || "—"}`);
       }
     } else {
       const { error: verifyError } = await signIn.emailCode.verifyCode({ code: code.trim() });
@@ -93,8 +100,15 @@ export default function SignInScreen() {
         setError(verifyError.longMessage ?? "That code didn't work. Try again.");
         return;
       }
+      console.warn("signIn status after verify:", signIn.status);
       if (signIn.status === "complete") {
-        await signIn.finalize({ navigate: navigateAfterAuth });
+        const { error: finalizeError } = await signIn.finalize({ navigate: navigateAfterAuth });
+        if (finalizeError) {
+          console.error("signIn.finalize error:", JSON.stringify(finalizeError, null, 2));
+          setError(finalizeError.longMessage ?? "Couldn't complete sign-in. Try again.");
+        }
+      } else {
+        setError(`Sign-in isn't complete yet (status: ${signIn.status}).`);
       }
     }
   }
@@ -102,12 +116,15 @@ export default function SignInScreen() {
   async function handleOAuth(strategy: "oauth_google" | "oauth_apple") {
     setError(null);
     try {
-      const { createdSessionId, setActive } = await startSSOFlow({ strategy });
-      // No createdSessionId and no thrown error means the user cancelled — not an error state.
+      const { createdSessionId, setActive, signUp: oauthSignUp } = await startSSOFlow({ strategy });
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
         router.replace("/(onboarding)/choose-community");
+      } else if (oauthSignUp?.status === "missing_requirements") {
+        console.warn("OAuth sign-up missing requirements:", oauthSignUp.missingFields);
+        setError(`Missing required info: ${oauthSignUp.missingFields.join(", ")}`);
       }
+      // Otherwise: no session and no missing-requirements signUp means the user cancelled — not an error.
     } catch (oauthError) {
       console.error(JSON.stringify(oauthError, null, 2));
       setError("Sign-in failed. Try again.");
