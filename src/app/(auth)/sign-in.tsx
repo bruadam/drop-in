@@ -118,8 +118,7 @@ export default function SignInScreen() {
     try {
       const { createdSessionId, setActive, signUp: oauthSignUp } = await startSSOFlow({ strategy });
       if (createdSessionId && setActive) {
-        await setActive({ session: createdSessionId });
-        router.replace("/(onboarding)/choose-community");
+        await setActive({ session: createdSessionId, navigate: navigateAfterAuth });
       } else if (oauthSignUp?.status === "missing_requirements") {
         console.warn("OAuth sign-up missing requirements:", oauthSignUp.missingFields);
         setError(`Missing required info: ${oauthSignUp.missingFields.join(", ")}`);

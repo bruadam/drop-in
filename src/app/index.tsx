@@ -1,6 +1,5 @@
 import { useAuth } from "@clerk/expo";
 import { Redirect } from "expo-router";
-import { useEffect } from "react";
 
 import { LoadingScreen } from "@/components/ui";
 
@@ -12,12 +11,7 @@ import { LoadingScreen } from "@/components/ui";
  * For now every signed-in user is sent through onboarding every time.
  */
 export default function Index() {
-  const { isLoaded, isSignedIn, userId, sessionId } = useAuth();
-
-  // TEMP diagnostic — remove once the stuck-on-sign-in bug is confirmed fixed.
-  useEffect(() => {
-    console.warn("index render:", { isLoaded, isSignedIn, userId, sessionId });
-  }, [isLoaded, isSignedIn, userId, sessionId]);
+  const { isLoaded, isSignedIn } = useAuth();
 
   if (!isLoaded) {
     return <LoadingScreen />;
