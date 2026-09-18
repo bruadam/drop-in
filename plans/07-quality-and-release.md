@@ -46,6 +46,12 @@ writing:
   as logic lands (moderation verdict handling, points calculation, the
   alter-ego matching job, RLS-adjacent query builders), not as a
   separate catch-up pass at the end.
+- Security-relevant enforcement (suspension checks, tenant isolation,
+  platform-admin's scoped RLS exception, activity-creation rate-limiting —
+  all from [01](01-data-layer.md)/[02](02-core-loop.md)/[04](04-moderation-and-trust.md))
+  needs test coverage that actually tries to violate the rule (a suspended
+  user attempting to post, a cross-tenant read), not just the happy path —
+  these are the cases most likely to regress silently.
 
 ## Polish
 
@@ -69,9 +75,10 @@ writing:
 - Apple requires Sign in with Apple alongside any other third-party
   sign-in on iOS (guideline 4.8) — already satisfied, the sign-in screen
   offers it.
-- App icons exist (`assets/icon.png` etc., from the initial `expo
-  create-app` scaffold) but are Expo's generic default artwork, not
-  Drop-In branding — replace before submitting.
+- App icons: real branded artwork is already in progress
+  (`assets/icon-export/` + an updated `app.config.ts` adaptive-icon
+  background) — finish that work and make sure it's committed before
+  submission; don't reintroduce Expo's generic default artwork.
 - Everything else (screenshots, App Store Connect metadata, privacy
   labels) is standard submission work with no Drop-In-specific gotchas
   beyond what's already in `docs/CI-CD.md`'s workflow.

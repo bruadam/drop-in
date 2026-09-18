@@ -17,9 +17,12 @@ summarizes what's built and what isn't.
 - **Client**: Expo (React Native) + Expo Router, one codebase for iOS +
   web (`react-native-web`).
 - **Auth**: Clerk (`@clerk/expo`), email code + Google/Apple SSO, no
-  passwords. Multi-tenancy is currently a custom Postgres table, **not**
-  Clerk Organizations — see `plans/05-admin-and-tenancy.md`'s open
-  decision before touching anything tenant-related.
+  passwords. **Multi-tenancy is spec'd as Clerk Organizations (tenant =
+  org) but not yet built that way** — the scaffold's `tenants` is
+  currently a plain Postgres table with no Clerk Org behind it, and
+  forced organization-selection is disabled as a temporary unblock. This
+  is not an open design choice, it's unfinished work — see
+  `plans/05-admin-and-tenancy.md` before touching anything tenant-related.
 - **Data**: Supabase (Postgres + RLS + Realtime + Storage + Edge
   Functions), auth delegated entirely to Clerk via a JWT `accessToken`
   callback (`src/lib/supabase.ts`) — Supabase never runs its own sign-in.

@@ -12,10 +12,13 @@ starting any of this.
   plus `activity/`, `admin/`, `moderation/` stacks — all 14 spec screens
   exist and are navigable.
 - Clerk auth: email code + Google/Apple SSO, working end-to-end on a real
-  device. Instance config (no password/username, Google enabled, no forced
-  org-selection) matches the "email code, Google, Apple — no passwords"
-  spec. See `docs/CI-CD.md` and this session's commit history for exactly
-  what was changed and why.
+  device. Instance config (no password/username, Google enabled) matches
+  the "email code, Google, Apple — no passwords" spec. See `docs/CI-CD.md`
+  and this session's commit history for exactly what was changed and why.
+  **Forced organization-selection is currently disabled** — a temporary
+  state, not the target: the spec mandates Clerk Organizations as the
+  tenant model (§2), and re-enabling this is part of
+  [05-admin-and-tenancy.md](05-admin-and-tenancy.md), not an open choice.
 - Supabase client (`src/lib/supabase.ts`) bound to Clerk session tokens via
   the `accessToken` callback — no separate Supabase auth. Not yet
   connected to a real Supabase project or schema.
@@ -40,8 +43,11 @@ starting any of this.
 4. **[04-moderation-and-trust.md](04-moderation-and-trust.md)** — AI
    moderation pipeline, the moderation queue screen, suspension tiers.
 5. **[05-admin-and-tenancy.md](05-admin-and-tenancy.md)** — platform admin,
-   community creation, invite codes — and the open Clerk Organizations vs.
-   custom-tenant decision, which affects several other plans if reversed.
+   community creation, invite codes, and making tenants real Clerk
+   Organizations (per spec §2 — not yet built; the scaffold's tenants are
+   a plain table with no Clerk Org backing it). Read this one before
+   [01](01-data-layer.md) or [02](02-core-loop.md), since it changes how
+   both are built.
 6. **[06-integrations.md](06-integrations.md)** — Strava/Apple Health, push
    notifications, Polar.sh + MobilePay.
 7. **[07-quality-and-release.md](07-quality-and-release.md)** — tests,
@@ -70,3 +76,30 @@ build them as part of the plans above unless a plan says otherwise:
   with reasonable placeholders, don't bikeshed them now)
 - A suspension appeals process
 - Recurring/"permanent" activities generated from repeated weekly patterns
+  (spec §1 flags this as "machine learning to do" — a real future
+  direction, not near-term work)
+
+## Open questions carried over from the spec (§10)
+
+Not blockers — each has a stated default/leaning in the spec, noted where
+it's addressed:
+
+| Question | Where it's addressed |
+|---|---|
+| Interest taxonomy: freeform vs. shared base list | [01-data-layer.md](01-data-layer.md) §8 — shared base + tenant extensions, admin-approved (the spec's assumed default) |
+| Data retention window for past activities/messages | [01-data-layer.md](01-data-layer.md) §7 — 30 days assumed |
+| Admin tooling depth for v1 | [05-admin-and-tenancy.md](05-admin-and-tenancy.md) — manual (dashboard) for now, matches spec's assumption |
+| Leaderboard consent separate from fitness-connection consent | [03-social-and-community.md](03-social-and-community.md) — not built speculatively |
+| Points values & social-level thresholds | [02-core-loop.md](02-core-loop.md) — placeholder values, tune post-launch |
+| Moderator auto-promotion | [04-moderation-and-trust.md](04-moderation-and-trust.md) — eligibility signal built, promotion stays manual |
+| AI moderation model/cost | [04-moderation-and-trust.md](04-moderation-and-trust.md) — needs a technical spike, not decided here either |
+| Flagged-message visibility (visible to sender, hidden from others) | [04-moderation-and-trust.md](04-moderation-and-trust.md) — built as the spec's stated default |
+| Suspension appeals process | Out of scope, see above |
+| GPX file handling / map preview style | [06-integrations.md](06-integrations.md) — decide when building |
+| Polar.sh / Clerk webhook idempotency | [01-data-layer.md](01-data-layer.md) §6, [06-integrations.md](06-integrations.md) — built as a requirement, not left open |
+| Age display: exact vs. range | [03-social-and-community.md](03-social-and-community.md) — exact, to start |
+| Follow notification volume / digesting | [03-social-and-community.md](03-social-and-community.md), [06-integrations.md](06-integrations.md) — plain per-post first |
+| "View as" audit trail for platform admin | [05-admin-and-tenancy.md](05-admin-and-tenancy.md) — audit log built regardless of the visibility question |
+| Org-creation code lifecycle (single/multi-use, expiry) | [05-admin-and-tenancy.md](05-admin-and-tenancy.md) — reasonable default, revisit if wrong |
+| MobilePay support in Polar.sh checkout for Danish customers | [06-integrations.md](06-integrations.md) — verify directly before assuming Polar-only |
+| Pricing/business model for white-labeling other residences | Not addressed anywhere — flag when ready to scope, not a build task |
